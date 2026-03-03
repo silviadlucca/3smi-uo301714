@@ -1,0 +1,61 @@
+{   // Configurations of the debugger in Visual Studio Code
+
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [ 
+        // Debugging of application in production mode
+        {
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/index.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        // Debugging of tests in production mode
+        {
+            "name": "Mocha Tests",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "-r", "dotenv/config", "${workspaceFolder}/test/index.js"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        // Debugging of application in development mode
+        {
+            "name": "Launch (dev-start) via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "dev-start"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        // Debugging of tests in development mode
+        {
+            "name": "Launch (dev-test) via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "dev-test"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
+    ]
+}

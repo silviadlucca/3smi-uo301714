@@ -1,0 +1,58 @@
+services:
+  web-server: # web server service
+    image: nginx
+    container_name: books-web-server
+    restart: always
+    environment: # container variables
+      - NGINX_PORT=80
+    expose: # ports exposed by the container
+      - "80/tcp"
+    ports:  # redirects to host ports (left) container ports (right)
+      - "8081:80"
+    volumes: # maps to host directories (left) container directories (right)
+      - ./volumes/public:/usr/share/nginx/html:ro
+
+  db: # database service
+    image: mysql:8.0.21
+    container_name: books-db-service
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password # option for clients to connect to MySQL using password 
+    environment:
+      - MYSQL_DATABASE=book-store
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user-password
+      - MYSQL_ROOT_PASSWORD=root-password
+    expose:
+      - "3306"
+      - "33060"
+    volumes:
+      - ./volumes/data:/var/lib/mysql
+    networks:  
+      - books_backend # network to communicate with books-rest-api-service container
+
+  rest-api: # REST API service
+    build: ./ # image is built from the configuration in ./Dockerfile (located in the current directory)
+    image: books-rest-api-service
+    container_name: books-rest-api-service
+    restart: always
+    environment:
+      - PORT=3000
+      - DATABASE_NAME=book-store
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=user-password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+      - WAIT_HOSTS=db:3306
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./volumes/uploads:/uploads
+      - ./volumes/public/covers:/covers
+    networks: 
+      - books_backend # network to communicate with books-db-service container
+    depends_on:
+      - db  # REST API service waits for database service
+
+networks: 
+  books_backend: # network to communicate books-rest-api-service and books-db-service containers
+    driver: bridge
