@@ -1,9 +1,9 @@
 // Database configuration
 
-const host = process.env.DATABASE_HOST || 'localhost';
+const host = process.env.DATABASE_HOST || '10.38.12.201';
 const port = process.env.DATABASE_PORT || '3306';
 const user = process.env.DATABASE_USER || 'user';
-const password = process.env.DATABASE_PASSWORD || 'password';
+const password = process.env.DATABASE_PASSWORD || 'user-password';
 const database = process.env.DATABASE_NAME || 'book-store';
 
 module.exports = {
