@@ -5,7 +5,7 @@ const coverConfig = require('../config/cover.config');
 
 // Book object properties
 module.exports = (sequelize, Sequelize) => {
-    const Book = sequelize.define("books", {  // Table name and fields
+    const Video = sequelize.define("videos", {  // Table name and fields
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -15,16 +15,29 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        author: {
+        description: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
-        cover: {
+        userId: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        {
+        thumbnail:{
             type: Sequelize.STRING,
             allowNull: true,
-            defaultValue: coverConfig.DEFAULT
+            defaultValue: videoConfig.DEFAULT_THUMBNAIL
+        },
+        path: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        dash: {
+            type: Sequelize.STRING,
+            allowNull: true
         }
     });
 
-    return Book;
+    return Video;
 };
