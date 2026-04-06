@@ -1,0 +1,3 @@
+SEQUENTIAL
+student;[authentication username=student password=student24];
+2000;[authentication username=2000 password=guest24];

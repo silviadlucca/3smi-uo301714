@@ -1,0 +1,18 @@
+SEQUENTIAL
+emergency;[authentication username=emergency password=hotel26];
+reception;[authentication username=reception password=hotel26];
+room-101;[authentication username=room-101 password=hotel26];
+room-102;[authentication username=room-102 password=hotel26];
+room-103;[authentication username=room-103 password=hotel26];
+room-201;[authentication username=room-201 password=hotel26];
+room-202;[authentication username=room-202 password=hotel26];
+room-203;[authentication username=room-203 password=hotel26];
+room-301;[authentication username=room-301 password=hotel26];
+room-302;[authentication username=room-302 password=hotel26];
+room-303;[authentication username=room-303 password=hotel26];
+room-401;[authentication username=room-401 password=hotel26];
+room-402;[authentication username=room-402 password=hotel26];
+room-403;[authentication username=room-403 password=hotel26];
+room-501;[authentication username=room-501 password=hotel26];
+room-502;[authentication username=room-502 password=hotel26];
+room-503;[authentication username=room-503 password=hotel26];

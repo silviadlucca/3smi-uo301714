@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+<!--
+  Basic registration of a terminal in Asterisk.
+  
+  SIPp        Asterisk
+   |             |
+   |  REGISTER   |
+   |----------- >|
+   |     401     |
+   |< -----------|
+   |  REGISTER   |
+   |----------- >|
+   |     200     |
+   |< -----------|
+   
+  Example of usage to register a terminal:
+  
+  $> sipp <pbxIP> -sf uac_register.xml -m 1 -l 1 -s <terminal> -ap <password> -i <localIP> -trace_msg
+-->
+
+<scenario name="Basic registration">
+  <send retrans="500">
+    <![CDATA[
+
+      REGISTER sip:[remote_ip]:[remote_port] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: sip:[field0]@[local_ip]:[local_port];tag=[pid]SIPpTag00[call_number]
+      To: sip:[field0]@[local_ip]:[local_port]
+      Call-ID: [call_id]
+      CSeq: [cseq] REGISTER
+      Contact: sip:[field0]@[local_ip]:[local_port]
+      Max-Forwards: 10
+      Expires: 120
+      User-Agent: SIPp/3smi
+      Content-Length: 0
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="401" auth="true">
+  </recv>
+
+  <send retrans="500">
+    <![CDATA[
+
+      REGISTER sip:[remote_ip]:[remote_port] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: sip:[field0]@[local_ip]:[local_port];tag=[pid]SIPpTag00[call_number]
+      To: sip:[field0]@[local_ip]:[local_port]
+      Call-ID: [call_id]
+      CSeq: [cseq] REGISTER
+      Contact: sip:[field0]@[local_ip]:[local_port]
+      [field1]
+      Max-Forwards: 10
+      Expires: 120
+      User-Agent: SIPp/3smi
+      Content-Length: 0
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="200">
+  </recv>
+
+</scenario>
+
